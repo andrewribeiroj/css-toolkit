@@ -13,16 +13,48 @@
 </head>
 
 <body>
+    <h5 class="card-header">CSS Toolkit</h5>
+
+    <section class="hyperlink-generator"></section>
     <div class="card">
-        <h5 class="card-header">CSS Toolkit</h5>
         <div class="card-body">
             <h6 class="card-title">HyperLink Generator</h6>
-            <button id="getHyperLink" class="btn btn-primary">Copy HyperLink <i id="getHyperLinkIcon" class="bi bi-clipboard"></i></button>
-            <button id="getUrl" class="btn btn-primary">Copy URL <i id="getUrlIcon" class="bi bi-clipboard"></i></button>
+            <button id="getHyperLink" class="btn btn-primary">
+                Copy HyperLink <i id="getHyperLinkIcon" class="bi bi-clipboard"></i>
+            </button>
+            <button id="getUrl" class="btn btn-primary">
+                Copy URL <i id="getUrlIcon" class="bi bi-clipboard"></i>
+            </button>
+            <div id="success-message" class="alert alert-success w-100 mt-2 mb-0 collapse" role="alert">
+                Copied to clipboard!
+            </div>
+            <div id="error-message" class="alert alert-danger w-100 mt-2 mb-0 collapse" role="alert">
+                Something went wrong.
+            </div>
         </div>
     </div>
 
+    <section class="domain-checker">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="card-title">Domain Checker</h6>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Selected</span>
+                    <input type="text" id="selectedText" class="form-control" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default" disabled>
+                </div>
+                <button id="whois" class="btn btn-primary">
+                    Whois Details
+                </button>
+                <button id="dns" class="btn btn-primary">
+                    DNS Checker
+                </button>
+            </div>
+        </div>
+    </section>
+
     <script src="popup.js"></script>
+    <script src="getSelectedText.js"></script>
 </body>
 
 </html>

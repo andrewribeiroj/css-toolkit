@@ -1,6 +1,24 @@
 var button = document.getElementById('get');
 var div = document.getElementById('url');
 
+window.onload = async () => {
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    let result;
+    try {
+        [{ result }] = await chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            function: () => getSelection().toString()
+        });
+        try {
+            document.getElementById('selectedText').value = result;
+        } catch (e) {
+            console.log(e);
+        };
+    } catch (e) {
+        console.log(e);
+    };
+}
+
 document.getElementById('getHyperLink').onclick = function () {
     chrome.storage.sync.get(null, function (data) {
         var settings = data;
@@ -41,17 +59,7 @@ document.getElementById('getHyperLink').onclick = function () {
             navigator.clipboard.write(data).then(
                 () => {
                     console.log("Successfully copied to clipboard!");
-                    document.getElementById('getHyperLink').classList.remove('btn-primary');
-                    document.getElementById('getHyperLink').classList.add('btn-success');
-                    document.getElementById('getHyperLinkIcon').classList.remove('bi-clipboard');
-                    document.getElementById('getHyperLinkIcon').classList.add('bi-clipboard-check');
-
-                    setTimeout(() => {
-                        document.getElementById('getHyperLink').classList.remove('btn-success');
-                        document.getElementById('getHyperLink').classList.add('btn-primary');
-                        document.getElementById('getHyperLinkIcon').classList.remove('bi-clipboard-check');
-                        document.getElementById('getHyperLinkIcon').classList.add('bi-clipboard');
-                    }, 2000);
+                    successMessage('getHyperLink', 'getHyperLinkIcon');
                 },
                 () => { }
             );
@@ -98,20 +106,30 @@ document.getElementById('getUrl').onclick = function () {
             navigator.clipboard.write(data).then(
                 () => {
                     console.log("Successfully copied to clipboard!");
-                    document.getElementById('getUrl').classList.remove('btn-primary');
-                    document.getElementById('getUrl').classList.add('btn-success');
-                    document.getElementById('getUrlIcon').classList.remove('bi-clipboard');
-                    document.getElementById('getUrlIcon').classList.add('bi-clipboard-check');
-
-                    setTimeout(() => {
-                        document.getElementById('getUrl').classList.remove('btn-success');
-                        document.getElementById('getUrl').classList.add('btn-primary');
-                        document.getElementById('getUrlIcon').classList.remove('bi-clipboard-check');
-                        document.getElementById('getUrlIcon').classList.add('bi-clipboard');
-                    }, 2000);
+                    successMessage('getUrl', 'getUrlIcon');
                 },
                 () => { }
             );
         });
     });
+}
+
+function successMessage(button, icon) {
+    document.getElementById(button).classList.remove('btn-primary');
+    document.getElementById(button).classList.add('btn-success');
+    document.getElementById(icon).classList.remove('bi-clipboard');
+    document.getElementById(icon).classList.add('bi-clipboard-check');
+
+    document.getElementById('success-message').classList.remove('collapse');
+    document.getElementById('success-message').classList.add('collapse.show');
+
+    setTimeout(() => {
+        document.getElementById(button).classList.remove('btn-success');
+        document.getElementById(button).classList.add('btn-primary');
+        document.getElementById(icon).classList.remove('bi-clipboard-check');
+        document.getElementById(icon).classList.add('bi-clipboard');
+
+        document.getElementById('success-message').classList.remove('collapse.show');
+        document.getElementById('success-message').classList.add('collapse');
+    }, 2000);
 }
