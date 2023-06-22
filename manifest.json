@@ -1,0 +1,23 @@
+{
+    "name": "CSS Toolkit",
+    "description": "Customer Service and Support tools for daily Web Hosting Support tasks",
+    "author": "Andrew Ribeiro",
+    "version": "0.1.0",
+    "manifest_version": 3,
+    "icons": {},
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {}
+    },
+    "options_page": "options.html",
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": [
+        "storage",
+        "activeTab",
+        "tabs",
+        "contextMenus",
+        "clipboardWrite"
+    ]
+}

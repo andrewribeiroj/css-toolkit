@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Toolkit Options</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="options.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="pt-3">CSS Toolkit Options</h2>
+        <h4 class="pt-3 pb-2">HyperLink Generator</h6>
+
+            <div class="row">
+                <div class="col">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <label class="switch">
+                                <input type="checkbox" name="uppercase" id="uppercase" class="hyperlinkCheckbox">
+                                <span class="slider round"></span>
+                            </label>
+                            <span>
+                                <label for="uppercase">UPPERCASE</label>
+                            </span>
+                        </li>
+                        <li class="list-group-item">
+                            <label class="switch">
+                                <input type="checkbox" name="bold" id="bold" class="hyperlinkCheckbox">
+                                <span class="slider round"></span>
+                            </label>
+                            <span>
+                                <label for="bold"><b>Bold Text</b></label>
+                            </span>
+                        </li>
+                        <li class="list-group-item">
+                            <label class="switch">
+                                <input type="checkbox" name="italic" id="italic" class="hyperlinkCheckbox">
+                                <span class="slider round"></span>
+                            </label>
+                            <span>
+                                <label for="italic"><i>Italic Text</i></label>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <div class="card" id="HyperLink Preview">
+                        <div class="card-header">
+                            HyperLink Preview
+                        </div>
+                        <div class="card-body">
+                            <p id="hyperlinkPreview">
+                                <a href="https://www.hostinger.com/tutorials/domain-vs-hosting" target="_blank">
+                                    Domain vs Hosting: Definitions, Differences and FAQ
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+            <button id="save" type="button" class="btn btn-outline-primary">
+                Save
+            </button>
+            <button id="reset" type="button" class="btn btn-outline-secondary">
+                Reset Settings
+            </button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="pt-5">
+        <p class="text-center text-black-50">
+            Insights and feedback are always welcome! | <a href="https://www.linkedin.com/in/andrewribeiroj/"
+                target="_blank"><i class="bi bi-linkedin"></i></a>
+        </p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="options.js"></script>
+</body>
+
+</html>

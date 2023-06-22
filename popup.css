@@ -1,0 +1,10 @@
+html
+{
+    width: 330px; /* max: 1000px */
+    height: auto; /* max: 750px */
+}
+
+.card-body button {
+    transition: 0.5s;
+    margin: 2px;
+}
