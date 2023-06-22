@@ -2,9 +2,11 @@
     "name": "CSS Toolkit",
     "description": "Customer Service and Support tools for daily Web Hosting Support tasks",
     "author": "Andrew Ribeiro",
-    "version": "0.1.0",
+    "version": "0.0.1",
     "manifest_version": 3,
-    "icons": {},
+    "icons": {
+        "128": "globe-icon.png"
+    },
     "action": {
         "default_popup": "popup.html",
         "default_icon": {}
