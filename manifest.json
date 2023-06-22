@@ -5,15 +5,15 @@
     "version": "0.0.1",
     "manifest_version": 3,
     "icons": {
-        "128": "globe-icon.png"
+        "128": "images/globe-icon.png"
     },
     "action": {
-        "default_popup": "popup.html",
+        "default_popup": "index/popup/popup.html",
         "default_icon": {}
     },
-    "options_page": "options.html",
+    "options_page": "index/options/options.html",
     "background": {
-        "service_worker": "background.js"
+        "service_worker": "service-workers/background.js"
     },
     "permissions": [
         "storage",
