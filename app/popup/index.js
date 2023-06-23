@@ -23,11 +23,11 @@ window.onload = async () => {
         var keys = Object.keys(data);
 
         keys.forEach(key => {
-            if(key.startsWith("enable")){
-                if(data[key] === 1)
-                    enableSession(key+"Session");
+            if (key.startsWith("enable")) {
+                if (data[key] === 1)
+                    enableSession(key + "Session");
                 else
-                    disableSession(key+"Session");
+                    disableSession(key + "Session");
             }
         });
     });
@@ -134,8 +134,7 @@ function successMessage(button, icon) {
     document.getElementById(icon).classList.remove('bi-clipboard');
     document.getElementById(icon).classList.add('bi-clipboard-check');
 
-    document.getElementById('success-message').classList.remove('collapse');
-    document.getElementById('success-message').classList.add('collapse.show');
+    collapseShow('success-message');
 
     setTimeout(() => {
         document.getElementById(button).classList.remove('btn-success');
@@ -143,8 +142,7 @@ function successMessage(button, icon) {
         document.getElementById(icon).classList.remove('bi-clipboard-check');
         document.getElementById(icon).classList.add('bi-clipboard');
 
-        document.getElementById('success-message').classList.remove('collapse.show');
-        document.getElementById('success-message').classList.add('collapse');
+        collapseHide('success-message', 0);
     }, 2000);
 }
 
@@ -154,4 +152,52 @@ function enableSession(id) {
 
 function disableSession(id) {
     document.getElementById(id).style.display = "none";
+}
+
+document.getElementById('whois').onclick = function () {
+    collapseShow('whois-message');
+    collapseHide('whois-message', 15000, 12000);
+}
+
+document.getElementById('dns').onclick = function () {
+    collapseShow('dns-message');
+    collapseHide('dns-message', 15000, 12000);
+}
+
+document.getElementById('http').onclick = function () {
+    let domain = document.getElementById('selectedText').value;
+
+    if (domain)
+        document.getElementById('http-message').innerHTML = domain;
+
+    collapseShow('http-message');
+    collapseHide('http-message', 15000, 12000);
+}
+
+function validateDomain(domain) {
+    if (/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$/.test(domain)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function collapseShow(id) {
+    document.getElementById(id).classList.remove('collapse');
+    document.getElementById(id).classList.add('collapse.show');
+}
+
+function collapseHide(id, hideMS = 15000, opacityMS = null) {
+
+    if (opacityMS !== null) {
+        setTimeout(() => {
+            document.getElementById(id).style.opacity = "0.5";
+        }, opacityMS);
+    }
+
+    setTimeout(() => {
+        document.getElementById(id).classList.remove('collapse.show');
+        document.getElementById(id).classList.add('collapse');
+        document.getElementById(id).style.opacity = "1";
+    }, hideMS);
 }
