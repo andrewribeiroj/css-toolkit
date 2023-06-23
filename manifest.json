@@ -8,13 +8,10 @@
         "128": "images/globe-icon.png"
     },
     "action": {
-        "default_popup": "index/popup/popup.html",
+        "default_popup": "app/popup/index.html",
         "default_icon": {}
     },
-    "options_page": "index/options/options.html",
-    "background": {
-        "service_worker": "service-workers/background.js"
-    },
+    "options_page": "app/options/options.html",
     "permissions": [
         "storage",
         "activeTab",
@@ -22,5 +19,8 @@
         "contextMenus",
         "clipboardWrite",
         "scripting"
-    ]
+    ],
+    "background": {
+        "service_worker": "service-workers/background.js"
+    }
 }

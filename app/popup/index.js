@@ -17,6 +17,20 @@ window.onload = async () => {
     } catch (e) {
         console.log(e);
     };
+
+    chrome.storage.sync.get(null, function (data) {
+        var settings = data;
+        var keys = Object.keys(data);
+
+        keys.forEach(key => {
+            if(key.startsWith("enable")){
+                if(data[key] === 1)
+                    enableSession(key+"Session");
+                else
+                    disableSession(key+"Session");
+            }
+        });
+    });
 }
 
 document.getElementById('getHyperLink').onclick = function () {
@@ -132,4 +146,12 @@ function successMessage(button, icon) {
         document.getElementById('success-message').classList.remove('collapse.show');
         document.getElementById('success-message').classList.add('collapse');
     }, 2000);
+}
+
+function enableSession(id) {
+    document.getElementById(id).style.display = "block";
+}
+
+function disableSession(id) {
+    document.getElementById(id).style.display = "none";
 }

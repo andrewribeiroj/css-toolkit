@@ -7,26 +7,42 @@ document.body.onload = function () {
 
         chrome.storage.sync.get(key, function (data) {
             var element = document.getElementById(key);
+            console.log(key, data[key])
 
             if (data[key] === undefined) {
-                chrome.storage.sync.set({ [key]: 0 }, function () {
-                    element.checked = false;
-                });
+                if (key !== "enableHyperLink"){
+                    chrome.storage.sync.set({ [key]: 0 }, function () {
+                        element.checked = false;
+                    });
+                } else {
+                    chrome.storage.sync.set({ [key]: 1 }, function () {
+                        element.checked = true;
+                    });
+                }
+                window.location.reload();
             } else {
                 if (data[key] === 0) {
                     element.checked = false;
+
+                    if(key === "enableHyperLink" || key === "enableDomain") {
+                        disableSession(key+"Session");
+                    }
                 } else {
                     element.checked = true;
 
+                    if(key === "enableHyperLink" || key === "enableDomain") {
+                        enableSession(key);
+                    }
+
                     switch (key) {
                         case "uppercase":
-                            document.getElementById("hyperlinkPreview").innerHTML = document.getElementById("hyperlinkPreview").innerHTML.toUpperCase();
+                            document.getElementById("hyperlinkPreviewText").innerHTML = document.getElementById("hyperlinkPreviewText").innerHTML.toUpperCase();
                             break;
                         case "bold":
-                            document.getElementById("hyperlinkPreview").style.fontWeight = "bold";
+                            document.getElementById("hyperlinkPreviewText").style.fontWeight = "bold";
                             break;
                         case "italic":
-                            document.getElementById("hyperlinkPreview").style.fontStyle = "italic";
+                            document.getElementById("hyperlinkPreviewText").style.fontStyle = "italic";
                             break;
                     }
                 }
@@ -66,4 +82,12 @@ document.getElementById("reset").onclick = function () {
     chrome.storage.sync.clear();
 
     location.reload();
+}
+
+function enableSession(id) {
+    document.getElementById(id).style.opacity = "1";
+}
+
+function disableSession(id) {
+    document.getElementById(id).style.opacity = "0.5";
 }

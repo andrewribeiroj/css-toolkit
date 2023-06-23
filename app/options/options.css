@@ -39,12 +39,20 @@
     transition: .4s;
 }
 
-input:checked+.slider {
+.switch input:checked+.slider {
     background-color: #2196F3;
 }
 
-input:focus+.slider {
+.switch input:focus+.slider {
     box-shadow: 0 0 1px #2196F3;
+}
+
+.main-switch input:checked+.slider {
+    background-color: #13e035;
+}
+
+.main-switch input:focus+.slider {
+    box-shadow: 0 0 1px #13e035;
 }
 
 input:checked+.slider:before {
@@ -60,4 +68,8 @@ input:checked+.slider:before {
 
 .slider.round:before {
     border-radius: 50%;
+}
+
+.options-list :first-child {
+    padding-left: 0px;
 }
