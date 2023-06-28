@@ -1,22 +1,6 @@
-var button = document.getElementById('get');
-var div = document.getElementById('url');
-
 window.onload = async () => {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    let result;
-    try {
-        [{ result }] = await chrome.scripting.executeScript({
-            target: { tabId: tab.id },
-            function: () => getSelection().toString()
-        });
-        try {
-            document.getElementById('selectedText').value = result;
-        } catch (e) {
-            console.log(e);
-        };
-    } catch (e) {
-        console.log(e);
-    };
+    var selectedText = getSelectedText(tab, 'selectedText');
 
     chrome.storage.sync.get(null, function (data) {
         var settings = data;
@@ -33,7 +17,7 @@ window.onload = async () => {
     });
 }
 
-document.getElementById('getHyperLink').onclick = function () {
+document.getElementById('getHyperlink').onclick = function () {
     chrome.storage.sync.get(null, function (data) {
         var settings = data;
         var keys = Object.keys(data);
@@ -43,24 +27,25 @@ document.getElementById('getHyperLink').onclick = function () {
             var activeTab = tabs[0];
             var url = activeTab.url;
             var title = activeTab.title;
-            var html = '<a href="' + url + '">' + title + '</a>';
 
             keys.forEach(key => {
                 switch (key) {
                     case "uppercase":
                         if (settings[key] === 1)
-                            html = html.toUpperCase();
+                            title = title.toUpperCase();
                         break;
                     case "bold":
                         if (settings[key] === 1)
-                            html = '<b>' + html + '</b>';
+                            title = '<b>' + title + '</b>';
                         break;
                     case "italic":
                         if (settings[key] === 1)
-                            html = '<i>' + html + '</i>';
+                            title = '<i>' + title + '</i>';
                         break;
                 }
             });
+
+            var html = '<a href="' + url + '">' + title + '</a>';
 
             const blobTitle = new Blob([title], { type: "text/plain" });
             const blobLink = new Blob([html], { type: "text/html" });
@@ -73,7 +58,7 @@ document.getElementById('getHyperLink').onclick = function () {
             navigator.clipboard.write(data).then(
                 () => {
                     console.log("Successfully copied to clipboard!");
-                    successMessage('getHyperLink', 'getHyperLinkIcon');
+                    successMessage('getHyperlink', 'getHyperlinkIcon');
                 },
                 () => { }
             );
@@ -154,32 +139,34 @@ function disableSession(id) {
     document.getElementById(id).style.display = "none";
 }
 
-document.getElementById('whois').onclick = function () {
+document.getElementById('whois').onclick = async function () {
+    let domain = new Domain(selectedText.value);
+
+    if (domain.validate())
+        document.getElementById('whois-message').innerHTML = await domain.whois();
+
     collapseShow('whois-message');
     collapseHide('whois-message', 15000, 12000);
 }
 
-document.getElementById('dns').onclick = function () {
+document.getElementById('dns').onclick = async function () {
+    let domain = new Domain(selectedText.value);
+
+    if (domain.validate())
+        document.getElementById('dns-message').innerHTML = await domain.dns();
+
     collapseShow('dns-message');
     collapseHide('dns-message', 15000, 12000);
 }
 
-document.getElementById('http').onclick = function () {
-    let domain = document.getElementById('selectedText').value;
+document.getElementById('http').onclick = async function () {
+    let domain = new Domain(selectedText.value);
 
-    if (domain)
-        document.getElementById('http-message').innerHTML = domain;
+    if (domain.validate())
+        document.getElementById('http-message').innerHTML = await domain.http();
 
     collapseShow('http-message');
     collapseHide('http-message', 15000, 12000);
-}
-
-function validateDomain(domain) {
-    if (/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$/.test(domain)) {
-        return true;
-    } else {
-        return false;
-    }
 }
 
 function collapseShow(id) {

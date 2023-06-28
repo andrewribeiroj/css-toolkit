@@ -21,6 +21,6 @@
         "scripting"
     ],
     "background": {
-        "service_worker": "service-workers/background.js"
+        "service_worker": "app/service-workers/background.js"
     }
 }

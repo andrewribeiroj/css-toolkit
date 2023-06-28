@@ -1,16 +1,16 @@
 document.body.onload = function () {
 
-    let hyperlinkCheckboxes = document.getElementsByClassName("hyperlinkCheckbox");
+    let HyperlinkCheckboxes = document.getElementsByClassName("HyperlinkCheckbox");
 
-    for (var i = 0; i < hyperlinkCheckboxes.length; i++) {
-        let key = hyperlinkCheckboxes[i].id;
+    for (var i = 0; i < HyperlinkCheckboxes.length; i++) {
+        let key = HyperlinkCheckboxes[i].id;
 
         chrome.storage.sync.get(key, function (data) {
             var element = document.getElementById(key);
             console.log(key, data[key])
 
             if (data[key] === undefined) {
-                if (key !== "enableHyperLink"){
+                if (key !== "enableHyperlink"){
                     chrome.storage.sync.set({ [key]: 0 }, function () {
                         element.checked = false;
                     });
@@ -24,25 +24,25 @@ document.body.onload = function () {
                 if (data[key] === 0) {
                     element.checked = false;
 
-                    if(key === "enableHyperLink" || key === "enableDomain") {
+                    if(key === "enableHyperlink" || key === "enableDomain") {
                         disableSession(key+"Session");
                     }
                 } else {
                     element.checked = true;
 
-                    if(key === "enableHyperLink" || key === "enableDomain") {
+                    if(key === "enableHyperlink" || key === "enableDomain") {
                         enableSession(key);
                     }
 
                     switch (key) {
                         case "uppercase":
-                            document.getElementById("hyperlinkPreviewText").innerHTML = document.getElementById("hyperlinkPreviewText").innerHTML.toUpperCase();
+                            document.getElementById("HyperlinkPreviewText").innerHTML = document.getElementById("HyperlinkPreviewText").innerHTML.toUpperCase();
                             break;
                         case "bold":
-                            document.getElementById("hyperlinkPreviewText").style.fontWeight = "bold";
+                            document.getElementById("HyperlinkPreviewText").style.fontWeight = "bold";
                             break;
                         case "italic":
-                            document.getElementById("hyperlinkPreviewText").style.fontStyle = "italic";
+                            document.getElementById("HyperlinkPreviewText").style.fontStyle = "italic";
                             break;
                     }
                 }
@@ -52,12 +52,12 @@ document.body.onload = function () {
 }
 
 document.getElementById("save").addEventListener('click', function () {
-    let hyperlinkCheckboxes = document.getElementsByClassName("hyperlinkCheckbox");
+    let HyperlinkCheckboxes = document.getElementsByClassName("HyperlinkCheckbox");
 
-    for (var i = 0; i < hyperlinkCheckboxes.length; i++) {
-        let key = hyperlinkCheckboxes[i].id;
+    for (var i = 0; i < HyperlinkCheckboxes.length; i++) {
+        let key = HyperlinkCheckboxes[i].id;
 
-        if (hyperlinkCheckboxes[i].checked) {
+        if (HyperlinkCheckboxes[i].checked) {
             chrome.storage.sync.set({ [key]: 1 }, function () {
                 document.getElementById(key).checked = true;
             });
