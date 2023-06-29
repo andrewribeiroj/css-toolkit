@@ -23,26 +23,49 @@ class Domain {
         }
     }
 
-    whois() {
-        return (`${this.name} Whois data`);
+    async whois() {
+        let whois = await fetch('http://localhost:8000/whois/' + this.name)
+            .then((response) => {
+                console.log(response)
+
+                return ({
+                    host: `${this.name}`,
+                    response: response //Need to check further, not working as expected
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        return JSON.stringify(whois);
     }
 
-    dns() {
-        return (`${this.name} DNS data`);
+    async dns() {
+        let dns = await fetch('http://localhost:8000/dns/' + this.name)
+            .then((response) => {
+                console.log(response)
+
+                return ({
+                    host: `${this.name}`,
+                    response: response //Need to check further, not working as expected
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        return JSON.stringify(dns);
     }
 
     async http() {
-        let httpStatus = await fetch('http://localhost:8000/http/google.com')
-        .then( (response) => {
-            console.log(response.status)
-            return ({
-                message: `${this.name} HTTP Status`,
-                status: response.status
+        let httpStatus = await fetch('http://localhost:8000/http/' + this.name)
+            .then((response) => {
+                return ({
+                    host: `${this.name}`,
+                    status: response.status
+                });
+            })
+            .catch((err) => {
+                console.log(err);
             });
-        })
-        .catch( (err) => {
-            console.log(err);
-        });
 
         console.log(httpStatus)
         return JSON.stringify(httpStatus);
