@@ -24,14 +24,14 @@ class Domain {
     }
 
     async whois() {
-        let whois = await fetch('http://localhost:8000/whois/' + this.name)
+        let whois = await fetch(`http://localhost:8000/whois/${this.name}`)
             .then((response) => {
-                console.log(response)
-
-                return ({
-                    host: `${this.name}`,
-                    response: response //Need to check further, not working as expected
-                });
+                return response.json().then((data) => {
+                    return ({
+                        host: `${this.name}`,
+                        dns: data
+                    });
+                })
             })
             .catch((err) => {
                 console.log(err);
@@ -40,14 +40,14 @@ class Domain {
     }
 
     async dns() {
-        let dns = await fetch('http://localhost:8000/dns/' + this.name)
+        let dns = await fetch(`http://localhost:8000/dns/${this.name}`)
             .then((response) => {
-                console.log(response)
-
-                return ({
-                    host: `${this.name}`,
-                    response: response //Need to check further, not working as expected
-                });
+                return response.json().then((data) => {
+                    return ({
+                        host: `${this.name}`,
+                        response: data
+                    });
+                })
             })
             .catch((err) => {
                 console.log(err);
@@ -56,18 +56,18 @@ class Domain {
     }
 
     async http() {
-        let httpStatus = await fetch('http://localhost:8000/http/' + this.name)
+        let httpStatus = await fetch(`http://localhost:8000/http/${this.name}`)
             .then((response) => {
-                return ({
-                    host: `${this.name}`,
-                    status: response.status
-                });
+                return response.json().then((data) => {
+                    return ({
+                        host: `${this.name}`,
+                        response: data.response
+                    });
+                })
             })
             .catch((err) => {
                 console.log(err);
             });
-
-        console.log(httpStatus)
         return JSON.stringify(httpStatus);
     }
 }
