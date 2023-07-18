@@ -1,8 +1,8 @@
 {
-    "name": "CSS Toolkit",
-    "description": "Customer Service and Support tools for daily Web Hosting Support tasks",
+    "name": "Domain Analysis Toolkit",
+    "description": "Domain analysis tools for daily domains and websites management",
     "author": "Andrew Ribeiro",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "manifest_version": 3,
     "icons": {
         "128": "images/globe-icon.png"

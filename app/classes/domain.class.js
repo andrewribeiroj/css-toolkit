@@ -1,5 +1,6 @@
-class Domain {
+class Domain extends apiRequestant {
     constructor(name) {
+        super();
         this.name = name;
         this.url;
     }
@@ -24,7 +25,7 @@ class Domain {
     }
 
     async whois() {
-        let whois = await fetch(`http://localhost:8000/whois/${this.name}`)
+        let whois = await fetch(`${this.api}/whois/${this.name}`)
             .then((response) => {
                 return response.json().then((data) => {
                     return ({
@@ -40,7 +41,7 @@ class Domain {
     }
 
     async dns() {
-        let dns = await fetch(`http://localhost:8000/dns/${this.name}`)
+        let dns = await fetch(`${this.api}/dns/${this.name}`)
             .then((response) => {
                 return response.json().then((data) => {
                     return ({
@@ -56,7 +57,7 @@ class Domain {
     }
 
     async http() {
-        let httpStatus = await fetch(`http://localhost:8000/http/${this.name}`)
+        let httpStatus = await fetch(`${this.api}/http/${this.name}`)
             .then((response) => {
                 return response.json().then((data) => {
                     return ({

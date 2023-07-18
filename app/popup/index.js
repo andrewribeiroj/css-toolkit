@@ -145,8 +145,8 @@ document.getElementById('whois').onclick = async function () {
     if (domain.validate())
         document.getElementById('whois-message').innerHTML = await domain.whois();
     else
-        document.getElementById('http-message').innerHTML = "Text is not a domain name";
-        
+        document.getElementById('whois-message').innerHTML = "Text is not a domain name";
+
     collapseShow('whois-message');
     collapseHide('whois-message', 15000, 12000);
 }
@@ -157,7 +157,7 @@ document.getElementById('dns').onclick = async function () {
     if (domain.validate())
         document.getElementById('dns-message').innerHTML = await domain.dns();
     else
-        document.getElementById('http-message').innerHTML = "Text is not a domain name";
+        document.getElementById('dns-message').innerHTML = "Text is not a domain name";
 
     collapseShow('dns-message');
     collapseHide('dns-message', 15000, 12000);
@@ -173,8 +173,6 @@ document.getElementById('http').onclick = async function () {
 
     collapseShow('http-message');
     collapseHide('http-message', 15000, 12000);
-
-
 }
 
 function collapseShow(id) {
